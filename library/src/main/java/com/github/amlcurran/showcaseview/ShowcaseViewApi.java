@@ -1,7 +1,3 @@
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
-}
-
 /*
  * Copyright 2014 Alex Curran
  *
@@ -18,15 +14,30 @@ def isReleaseBuild() {
  * limitations under the License.
  */
 
-allprojects {
-  group = GROUP
-  version = VERSION_CODE
+package com.github.amlcurran.showcaseview;
 
-  repositories {
-    mavenCentral()
-  }
+import android.widget.RelativeLayout;
 
-  tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-  }
+/**
+ * A simple interface which makes it easy to keep track of what is in the public
+ * ShowcaseView API
+ */
+public interface ShowcaseViewApi {
+    void hide();
+
+    void show();
+
+    void setContentTitle(CharSequence title);
+
+    void setContentText(CharSequence text);
+
+    void setButtonPosition(RelativeLayout.LayoutParams layoutParams);
+
+    void setHideOnTouchOutside(boolean hideOnTouch);
+
+    void setBlocksTouches(boolean blockTouches);
+
+    void setStyle(int theme);
+
+    boolean isShowing();
 }

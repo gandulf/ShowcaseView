@@ -1,7 +1,3 @@
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
-}
-
 /*
  * Copyright 2014 Alex Curran
  *
@@ -18,15 +14,26 @@ def isReleaseBuild() {
  * limitations under the License.
  */
 
-allprojects {
-  group = GROUP
-  version = VERSION_CODE
+package com.github.amlcurran.showcaseview;
 
-  repositories {
-    mavenCentral()
-  }
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.view.View;
 
-  tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-  }
+public class ApiUtils {
+
+    public boolean isCompatWith(int versionCode) {
+        return Build.VERSION.SDK_INT >= versionCode;
+    }
+
+    public boolean isCompatWithHoneycomb() {
+        return isCompatWith(Build.VERSION_CODES.HONEYCOMB);
+    }
+
+    @TargetApi(14)
+    public void setFitsSystemWindowsCompat(View view) {
+        if (isCompatWith(Build.VERSION_CODES.ICE_CREAM_SANDWICH)) {
+            view.setFitsSystemWindows(true);
+        }
+    }
 }

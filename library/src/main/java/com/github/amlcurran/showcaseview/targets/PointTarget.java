@@ -1,7 +1,3 @@
-def isReleaseBuild() {
-    return version.contains("SNAPSHOT") == false
-}
-
 /*
  * Copyright 2014 Alex Curran
  *
@@ -18,15 +14,27 @@ def isReleaseBuild() {
  * limitations under the License.
  */
 
-allprojects {
-  group = GROUP
-  version = VERSION_CODE
+package com.github.amlcurran.showcaseview.targets;
 
-  repositories {
-    mavenCentral()
-  }
+import android.graphics.Point;
 
-  tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-  }
+/**
+ * Showcase a specific x/y co-ordinate on the screen.
+ */
+public class PointTarget implements Target {
+
+    private final Point mPoint;
+
+    public PointTarget(Point point) {
+        mPoint = point;
+    }
+
+    public PointTarget(int xValue, int yValue) {
+        mPoint = new Point(xValue, yValue);
+    }
+
+    @Override
+    public Point getPoint() {
+        return mPoint;
+    }
 }
